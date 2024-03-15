@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function calculateAttendance(currentPercentage, hoursAttendedExtra, totalHoursPerWeek) {
   // Calculate total hours for a semester (15 weeks in a semester)
-  const totalHoursPerSemester = totalHoursPerWeek * 15;
+  const totalHoursPerSemester = totalHoursPerWeek * 13;
 
   // Calculate hours attended
   const hoursAttended = (currentPercentage / 100) * totalHoursPerSemester;

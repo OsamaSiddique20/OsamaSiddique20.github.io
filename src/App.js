@@ -41,7 +41,7 @@ function App() {
     </div>
     <div className="input-container">
       <label>
-        Hours Attended Extra:
+        Hours to miss:
         <input type="number" value={hoursAttendedExtra} onChange={(e) => setHoursAttendedExtra(parseInt(e.target.value))} />
       </label>
     </div>

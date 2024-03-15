@@ -17,18 +17,27 @@ function calculateAttendance(currentPercentage, hoursAttendedExtra, totalHoursPe
 }
 
 function App() {
-  const [currentPercentage, setCurrentPercentage] = useState(0);
-  const [hoursAttendedExtra, setHoursAttendedExtra] = useState(0);
-  const [totalHoursPerWeek, setTotalHoursPerWeek] = useState(0);
+  const [currentPercentage, setCurrentPercentage] = useState(null);
+  const [hoursAttendedExtra, setHoursAttendedExtra] = useState(null);
+  const [totalHoursPerWeek, setTotalHoursPerWeek] = useState(null);
   const [newPercentage, setNewPercentage] = useState(0);
+  const [error, setError] = useState(null);
 
   const handleCalculate = () => {
-    const result = calculateAttendance(currentPercentage, hoursAttendedExtra, totalHoursPerWeek);
-    setNewPercentage(result);
-    setCurrentPercentage('');
-    setHoursAttendedExtra('');
-    setTotalHoursPerWeek('');
-  };
+    if (!currentPercentage || !hoursAttendedExtra || !totalHoursPerWeek) {
+      setError('All fields are required');
+      setNewPercentage(0);
+      return;
+    }else{
+      const result = calculateAttendance(currentPercentage, hoursAttendedExtra, totalHoursPerWeek);
+      setNewPercentage(result);
+      setCurrentPercentage('');
+      setHoursAttendedExtra('');
+      setTotalHoursPerWeek('');
+      setError(null);
+    } 
+    }
+   
 
   return (
     <div className="container">
@@ -42,16 +51,17 @@ function App() {
     <div className="input-container">
       <label>
         Hours to miss:
-        <input type="number" value={hoursAttendedExtra} onChange={(e) => setHoursAttendedExtra(parseInt(e.target.value))} />
+        <input type="number" value={hoursAttendedExtra} onChange={(e) => setHoursAttendedExtra(parseFloat(e.target.value))} />
       </label>
     </div>
     <div className="input-container">
       <label>
         Total Hours Per Week:
-        <input type="number" value={totalHoursPerWeek} onChange={(e) => setTotalHoursPerWeek(parseInt(e.target.value))} />
+        <input type="number" value={totalHoursPerWeek} onChange={(e) => setTotalHoursPerWeek(parseFloat(e.target.value))} />
       </label>
     </div>
     <button className="button" onClick={handleCalculate}>Calculate</button>
+    {error && <div className="error">{error}</div>}
     {newPercentage !== 0 && (
       <div className="result">New Attendance Percentage: {newPercentage.toFixed(2)}%</div>
     )}

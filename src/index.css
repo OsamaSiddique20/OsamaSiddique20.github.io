@@ -79,3 +79,8 @@ code {
     width: 90%; /* Adjust as needed */
   }
 }
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
